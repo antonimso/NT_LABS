@@ -103,6 +103,15 @@ public class Main {
         return troco;
     }
 
+     /*
+            EXEMPLO . . .
+            DIGAMOS QUE O TROCO SEJA 7,35
+
+            1 - 5,00
+            1 - 2,00
+            1 - MOEDA 25
+            1 - MOEDA 10
+         */
     private static void devolverTroco(Double valorTroco){
         ArrayList tipoCedulas = new ArrayList();
         ArrayList tipoMoedas = new ArrayList();
@@ -120,18 +129,7 @@ public class Main {
         for (int i = 0; i < moedas.length; i++) {
             valorTroco =  verificaTrocoMoeda(valorTroco, moedas[i]);
         }
-        // tipoCedulas.forEach(cedula-> verificaTrocoCedula(valorTroco, (Integer) cedula));
-        // tipoCedulas.forEach(moeda-> verificaTrocoMoeda(valorTroco, (Double) moeda));
-
-        /*
-            EXEMPLO . . .
-            DIGAMOS QUE O TROCO SEJA 7,35
-
-            1 - 5,00
-            1 - 2,00
-            1 - MOEDA 25
-            1 - MOEDA 10
-         */
+       
     }
     public static double verificaTrocoCedula(double valorTroco, int tipoCedula){
         double qtdCedulas;
