@@ -1,6 +1,12 @@
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * @author Antonio Mateus
+ * @version 0.02
+ * @implNote Maquina de café que após escolher a opção devolve o troco em notas e moedas.
+ */
+
 public class Main {
     public static void main(String[] args) {
         ScanTutorial scan = new ScanTutorial();
@@ -103,15 +109,6 @@ public class Main {
         return troco;
     }
 
-     /*
-            EXEMPLO . . .
-            DIGAMOS QUE O TROCO SEJA 7,35
-
-            1 - 5,00
-            1 - 2,00
-            1 - MOEDA 25
-            1 - MOEDA 10
-         */
     private static void devolverTroco(Double valorTroco){
         ArrayList tipoCedulas = new ArrayList();
         ArrayList tipoMoedas = new ArrayList();
@@ -122,15 +119,27 @@ public class Main {
 
 
         for (int i = 0; i < cedulas.length; i++) {
-            if(valorTroco%cedulas[i]>=0){
+            if(valorTroco%cedulas[i]>=0) {
                 valorTroco = verificaTrocoCedula(valorTroco, cedulas[i]);
             }
         }
         for (int i = 0; i < moedas.length; i++) {
+
             valorTroco =  verificaTrocoMoeda(valorTroco, moedas[i]);
         }
-       
+
+        /*
+            EXEMPLO . . .
+            DIGAMOS QUE O TROCO SEJA 7,35
+
+            1 - 5,00
+            1 - 2,00
+            1 - MOEDA 25
+            1 - MOEDA 10
+         */
     }
+
+    // Calculos das Cedulas e Moedas pegando o resto da divisão e sempre reduzindo do valor do troco e retornando
     public static double verificaTrocoCedula(double valorTroco, int tipoCedula){
         double qtdCedulas;
         qtdCedulas = valorTroco/tipoCedula;
