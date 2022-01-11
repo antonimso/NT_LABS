@@ -15,9 +15,9 @@ public class Main {
         Double valor = coletarValor(scan, indice);
 
         Double troco = valorTroco(indice, valor);
-        System.out.println("Seu troco total é " + troco);
-        System.out.println("A opção escolhida foi " + indice);
-        System.out.println("O valor inserido foi " + valor);
+        System.out.println(Constants.MENSAGENS.TROCO_TOTAL + troco);
+        System.out.println(Constants.MENSAGENS.OPTION + indice);
+        System.out.println(Constants.MENSAGENS.VALOR + valor);
     }
 
     private static Integer selectedItem(ScanTutorial scan){
@@ -110,22 +110,17 @@ public class Main {
     }
 
     private static void devolverTroco(Double valorTroco){
-        ArrayList tipoCedulas = new ArrayList();
-        ArrayList tipoMoedas = new ArrayList();
-        int[] cedulas = {100, 50, 20, 10, 5, 2, 1};
-        double[] moedas = {0.50, 0.25, 0.10, 0.05, 0.01};
-        tipoCedulas.add(cedulas);
-        tipoMoedas.add(moedas);
+        Integer[] cedulas = {100, 50, 20, 10, 5, 2, 1};
+        Double[] moedas = {0.50, 0.25, 0.10, 0.05, 0.01};
 
-
-        for (int i = 0; i < cedulas.length; i++) {
-            if(valorTroco%cedulas[i]>=0) {
-                valorTroco = verificaTrocoCedula(valorTroco, cedulas[i]);
+        for (int cedula : cedulas) {
+            if(valorTroco%cedula>=0) {
+                valorTroco = verificaTrocoCedula(valorTroco, cedula);
             }
         }
-        for (int i = 0; i < moedas.length; i++) {
 
-            valorTroco =  verificaTrocoMoeda(valorTroco, moedas[i]);
+       for (double moeda : moedas) {
+            valorTroco =  verificaTrocoMoeda(valorTroco, moeda);
         }
 
         /*
@@ -141,25 +136,22 @@ public class Main {
 
     // Calculos das Cedulas e Moedas pegando o resto da divisão e sempre reduzindo do valor do troco e retornando
     public static double verificaTrocoCedula(double valorTroco, int tipoCedula){
-        double qtdCedulas;
-        qtdCedulas = valorTroco/tipoCedula;
-        if(tipoCedula == 1) {
-            System.out.println("O troco deve ter " + Math.floor(qtdCedulas) + " moeda de " + tipoCedula + " real");
-        }else{
-            System.out.println("O troco deve ter " + Math.floor(qtdCedulas) + " cedulas de " + tipoCedula + " reais");
+        double qtdCedulas = Math.floor(valorTroco/tipoCedula);
+        if(qtdCedulas > 0){
+            if(tipoCedula == 1) {
+                System.out.println("O troco deve ter " + Math.floor(qtdCedulas) + " moeda de " + tipoCedula + " real");
+            }else{
+                System.out.println("O troco deve ter " + Math.floor(qtdCedulas) + " cedulas de " + tipoCedula + " reais");
+            }
         }
-        return valorTroco - (Math.floor(qtdCedulas) * tipoCedula);
-
+        return valorTroco - (qtdCedulas * tipoCedula);
     }
     public static double verificaTrocoMoeda(double valorTroco, double tipoMoeda){
-        if(valorTroco < 0) {
-            System.out.println("O troco deve ter 0.0 moedas de " + (tipoMoeda*100) + " centavos");
-            return valorTroco;
+        if(valorTroco > 0) {
+            double qtdMoedas = Math.floor((valorTroco*100) / (tipoMoeda*100));
+            System.out.println("O troco deve ter " + qtdMoedas + " moedas de " + (tipoMoeda*100) + " centavos");
+            return (valorTroco - (qtdMoedas * tipoMoeda) * 100);
         }
-        double qtdMoedas;
-        qtdMoedas = (valorTroco*100)/(tipoMoeda*100);
-        System.out.println("O troco deve ter " + Math.floor(qtdMoedas) + " moedas de " + (tipoMoeda*100) + " centavos");
-        return (valorTroco - ((Math.floor(qtdMoedas) * tipoMoeda)) * 100);
-
+        return valorTroco;
     }
 }
