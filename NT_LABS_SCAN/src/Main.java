@@ -119,7 +119,7 @@ public class Main {
             }
         }
 
-        for (double moeda : moedas) {
+       for (double moeda : moedas) {
             valorTroco =  verificaTrocoMoeda(valorTroco, moeda);
         }
 
